@@ -1,0 +1,46 @@
+<launch>
+  <!-- 发布 CameraInfo 参数 -->
+  <!-- <rosparam param="/dvsense/camera_info_0">
+    header:
+      stamp: {secs: 0, nsecs: 0}
+      frame_id: 'camera'
+    height: 720
+    width: 1280
+    distortion_model: 'plumb_bob'
+    D: [0.0, 0.0, 0.0, 0.0, 0.0]
+    K: [1000.0, 0.0, 640.0, 0.0, 1000.0, 360.0, 0.0, 0.0, 1.0]
+    R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+    P: [1000.0, 0.0, 640.0, 0.0, 0.0, 1000.0, 360.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+    binning_x: 0
+    binning_y: 0
+    roi:
+      x_offset: 0
+      y_offset: 0
+      height: 720
+      width: 1280
+      do_rectify: false
+  </rosparam> -->
+
+  <!-- camera driver -->
+  <node name="dvsense_ros_driver" pkg="dvsense_ros_driver" type="dvsense_ros_driver" launch-prefix="gdb --args" output="screen">
+	<!-- <rosparam command="load" file="$(find dvsense_ros_driver)/config/DvsLume.yaml" /> -->
+    <param name="config_file" value="$(find dvsense_ros_driver)/config/DvsLume.yaml"/>
+  </node>
+
+  <!-- visualization -->
+  <node name="dvs_renderer" pkg="dvs_renderer" type="dvs_renderer">
+    <!-- <param name="display_method" value="grayscale"/> -->
+    <param name="display_method" value="red-blue"/>
+    <remap from="events" to="/dvsense/event_0" />
+    <remap from="camera_info" to="/dvsense/camera_info_0" />
+  </node>
+
+  <!-- display -->
+  <node name="image_view" pkg="rqt_image_view" type="rqt_image_view">
+  	<remap from="image" to="dvs_rendering"/>
+  </node>
+
+  <!-- configure -->
+  <!-- <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" /> -->
+
+</launch>

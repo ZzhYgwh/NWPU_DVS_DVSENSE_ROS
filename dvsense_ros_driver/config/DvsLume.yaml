@@ -1,0 +1,53 @@
+# DvsLume:
+  ## Bias value     # default min max
+  # refer to: https://sdk.dvsense.com/zh/html/bias_zh.html 
+Bias:
+  bias_diff_on: 52   # 0 -85 140
+  bias_diff_off: 190  # 0 -35 190
+  bias_fo: 28        # 0 -35
+  bias_hpf: 0       # 0 0 120
+  bias_refr: 0      # 0 -20 235 
+
+## ROI            # default min max
+# refer to: https://sdk.dvsense.com/zh/html/roi_zh.html
+ROI:
+  x_: 0              # 0 0 1280
+  y_: 0              # 0 0 720
+  width: 1280       # 1280 0 1280
+  height: 720       # 720 0 720
+  rescale: 1.0      # 1.0 0.0 1.0
+
+## Anti Flicker             # default min max
+# refer to: https://sdk.dvsense.com/zh/html/event_signal_processing_zh.html
+Anti_Flicker:
+  enable: false               # false false true
+  low_frequency: 50           # 50Hz 50Hz 520Hz
+  high_frequency: 520         # 520Hz 50Hz 520Hz
+  fliter_mode: "Band cut"     # Band cut, Band cut, Band pass
+  duty_cycle: 50              # 50% 0% 100%
+  start_threshold: 6          # 6 0 7
+  stop_threshold: 4           # 4 0 7
+
+## Event Trail Filter       # default min max
+Event_Trail_Filter:
+  enable: false               # false false true
+  threshold: 10               # 10 1 100
+  type: "TRAIL"               # "TRAIL" "STC_CUT_TRAIL" "STC_KEEP_TRAIL"
+
+Event_Rate_Controller:
+  enable: false               # false false true 
+  max_event_rate: 320         # 320MEv/s 0MEv/s 320MEv/s
+
+## Trigger in multi-camera
+# refer to: https://sdk.dvsense.com/zh/html/camera_synchronization_zh.html
+trriger_enable: false               # false false true
+
+## Output Type
+Output_Type: "ros"            # "ros"   "ros"   "raw"
+Out_file_path: "/home/hao/Desktop/events/" # if use raw, you should set this path
+
+## Publish Type
+pub_type: "frame"
+FRAME_EVENT_NUM_THRESHOLD: 300000
+
+Camera_Info_File: "/home/hao/platform_ws/src/nwpu_dvsense_ros/dvsense_ros_driver/config/event_param.yaml"
